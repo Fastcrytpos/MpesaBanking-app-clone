@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [pin, setPin] = useState('');
 
   // Function to handle number input
   const handlePress = (value) => {
     if (pin.length < 4) {
       setPin(pin + value);
+    }
+
+    // Navigate when exactly 4 digits have been entered
+    if (pin.length === 3 && value !== '⌫') {  // pin.length === 3 because adding the new digit makes it 4
+      navigation.navigate("Dashboard");
     }
   };
 
@@ -30,19 +35,15 @@ const Login = () => {
       {/* PIN Entry */}
       <Text style={styles.pinLabel}>ENTER M-PESA PIN:</Text>
       <View style={styles.pinContainer}>
-        {Array(4)
-          .fill('')
-          .map((_, index) => (
-            <View key={index} style={styles.pinCircle}>
-              <Text style={styles.pinText}>{pin[index] ? '•' : ''}</Text>
-            </View>
-          ))}
+        {Array(4).fill('').map((_, index) => (
+          <View key={index} style={styles.pinCircle}>
+            <Text style={styles.pinText}>{pin[index] ? '•' : ''}</Text>
+          </View>
+        ))}
       </View>
 
       {/* Numeric Keypad */}
       <View style={styles.keypad}>
-        
-
         {[1, 2, 3].map((number) => (
           <TouchableOpacity
             key={number}
@@ -52,7 +53,8 @@ const Login = () => {
             <Text style={styles.keyText}>{number}</Text>
           </TouchableOpacity>
         ))}
-        {[4,5,6].map((number) => (
+
+        {[4, 5, 6].map((number) => (
           <TouchableOpacity
             key={number}
             style={styles.key}
@@ -61,24 +63,34 @@ const Login = () => {
             <Text style={styles.keyText}>{number}</Text>
           </TouchableOpacity>
         ))}
+
         {[7, 8, 9].map((number) => (
           <TouchableOpacity
             key={number}
             style={styles.key}
-            onPress={() => handlePress(number.toString())}>
-              <Text style={styles.keyText}>{number}</Text>
-            </TouchableOpacity>))}
+            onPress={() => handlePress(number.toString())}
+          >
+            <Text style={styles.keyText}>{number}</Text>
+          </TouchableOpacity>
+        ))}
 
-        {["",0,"⌫"].map((number) => (
-      <TouchableOpacity
-        key={number}
-        style={styles.key}
-        onPress={() => handlePress(number.toString())}>
-          <Text style={styles.keyText}>{number}</Text>
-        </TouchableOpacity>))}
-        
+        <TouchableOpacity style={styles.key}>
+          <Text style={styles.keyText}>{''}</Text>
+        </TouchableOpacity>
 
-        
+        <TouchableOpacity
+          style={styles.key}
+          onPress={() => handlePress('0')}
+        >
+          <Text style={styles.keyText}>0</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.key}
+          onPress={handleBackspace} // Separate backspace logic
+        >
+          <Text style={styles.keyText}>⌫</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -145,23 +157,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   keypad: {
-    display: 'flex',
     flexWrap: 'wrap',
-    marginTop:200,
-    
-    // justifyContent:'space-around',
+    marginTop: 200,
     width: '100%',
     flexDirection: 'row',
-    padding:0,
     justifyContent: 'center',
-    // width: '100%',
   },
   key: {
-    display: 'flex',
-    flexDirection: 'row',
     width: '33%',
     padding: 15,
-    // margin: 1,
     backgroundColor: '#FFF',
     borderRadius: 10,
     justifyContent: 'center',
