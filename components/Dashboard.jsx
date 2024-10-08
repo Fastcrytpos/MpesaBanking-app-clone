@@ -1,28 +1,38 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Text, View } from 'react-native';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import Grow from './Grow';
 import Services from './Services';
 import Transactions from './Transactions';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 
 const Tab = createBottomTabNavigator();
 
-export default function Dashboard() {
+const Dashboard= () => {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name='Home' component={Home}/>
+    
+    <Tab.Navigator
+        initialRouteName='Home'
+        
+        >
+        <Tab.Screen name='Home' component={Home} options={{
+          tabBarIcon: ({  }) => (
+            <Image
+              style={styles.bottomTabIcon}
+              source={require('../assets/homeicon.png')}                  
+              />)}}/>
+
         <Tab.Screen name='Services' component={Services}/>
         <Tab.Screen name='Grow' component={Grow}/>
         <Tab.Screen name='Transactions' component={Transactions}/>
     </Tab.Navigator>
+    
       
    
   );
 }
+
+export default Dashboard
