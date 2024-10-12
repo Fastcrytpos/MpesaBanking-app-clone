@@ -13,9 +13,9 @@ const Home = () => {
           width: 50,
           height: 50,
           borderRadius: 99,
-          borderWidth: 3,
-          borderColor: 'blue', 
-          backgroundColor: '#FFC300', 
+          borderWidth: 2,
+          borderColor: '#59a4ed', 
+          backgroundColor: '#f4faff', 
           justifyContent: 'center',
           alignItems: 'center',
         }} >
@@ -23,6 +23,7 @@ const Home = () => {
             fontSize: 18,
             fontWeight: 'bold',
             alignSelf: 'center',
+            color: '#59a4ed'
           }}>SM</Text>
         </View>
         <View style={{
@@ -33,12 +34,12 @@ const Home = () => {
           height: 50,
           padding: 20,
           borderRadius: 99,
-          backgroundColor: 'blue', // User icon color
+          backgroundColor: '#6337EC', // User icon color
           justifyContent: 'center',
           alignItems: 'center',
           zIndex:-1
         }}>
-          <Icon name="briefcase" size={25} color="white" />
+          <Icon name="briefcase" size={26} color="white" />
         </View>
         <View style={{
           justifyContent:'top',
@@ -62,7 +63,7 @@ const Home = () => {
 
       {/* Balance Section */}
       <View style={styles.balanceContainer}>
-          <Text style={{}}>Balance</Text>
+          <Text style={{padding:10, fontSize:18, color:'#7d7d7d'}}>Balance</Text>
           <View style={{display:'flex', flexDirection:'row'}}>
               <Text style={styles.balanceText}>Ksh. 293.00</Text>
             <TouchableOpacity>
@@ -206,7 +207,7 @@ const Home = () => {
               <View style={styles.iconcards}>
                 
               <Image 
-              source={require('../assets/mali.webp')} 
+              source={require('../assets/maliicon.png')} 
               style={{
                 width:'100%',
                 height: '50px',
@@ -214,7 +215,7 @@ const Home = () => {
           }}
 
             />
-            <Text style={styles.icontags}>SEND AND REQUEST</Text>
+            <Text style={styles.icontags}>Mali</Text>
             
               </View>
             </TouchableOpacity>
@@ -225,13 +226,13 @@ const Home = () => {
               <Image 
               source={require('../assets/mpesa-go.png')} 
               style={{
-                    width:'60%',
+                    width:'50px',
                     height: '50px',
                     resizeMode: 'contain'
               }}
 
             />
-            <Text style={styles.icontags}>SEND AND REQUEST</Text>
+            <Text style={styles.icontags}>MPESA-Go</Text>
             
               </View>
             </TouchableOpacity>
@@ -243,7 +244,7 @@ const Home = () => {
               source={require('../assets/mshwari.jpg')} 
               style={styles.iconcardsimage}
             />
-            <Text style={styles.icontags}>SEND AND REQUEST</Text>
+            <Text style={styles.icontags}>M-Shwari</Text>
             
               </View>
             </TouchableOpacity>
@@ -255,7 +256,7 @@ const Home = () => {
               source={require('../assets/kcblogo.png')} 
               style={styles.iconcardsimage}
             />
-            <Text style={styles.icontags}>SEND AND REQUEST</Text>
+            <Text style={styles.icontags}>KCB M-PESA</Text>
             
               </View>
             </TouchableOpacity>
@@ -284,8 +285,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0', // Placeholder background if no image
   },
   greetingText: {
-    fontSize: 14,
+    fontSize: 18,
     color: '#7d7d7d', // Gray for greeting text
+    paddingBottom: 10,
+    
   },
   userName: {
     fontSize: 18,
@@ -312,18 +315,18 @@ const styles = StyleSheet.create({
     // backgroundColor: '#f5f5f5', 
     padding: 16,
     borderRadius: 10,
-    shadowColor: 'black',
-    // shadowOffset: 1,
-    // shadowRadius: 10,
-    // shadowOpacity: 0.3,
-    // elevation: 5,
-    elevation: 10,
+    shadowColor: '#000', // Optional: shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 10, // Shadow for Android
+  
     
   },
   balanceText: {
     paddingRight:10,
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 26,
+    // fontWeight: 'bold',
     color: '#000000', 
   },
   icontags:{
@@ -369,8 +372,8 @@ const styles = StyleSheet.create({
   },
   seeAll: {
     fontSize: 14,
-    color: '#0a84ff',
-    fontWeight: '500',
+    color: '#65c18c',
+    fontWeight: '800',
     // textAlign: 'right', // Align the SEE ALL text to the right
     // marginTop: 5,
   },
