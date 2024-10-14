@@ -1,6 +1,7 @@
 import React from 'react';
-import { SectionList } from 'react-native';
+import { SafeAreaView, SectionList } from 'react-native';
 import { FlatList, View, Text, StyleSheet, Image } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 const transactions = [
   { id: '1', name: 'Hellen Mwangi', phone: '254790***922', amount: '+ KSH. 500.00', time: '10:25 PM', type: 'credit', date: '2024-10-01' },
@@ -25,8 +26,7 @@ const transactions = [
   { id: '20', name: 'Ali Mwenda', phone: '254700***432', amount: '+ KSH. 1,500.00', time: '11:55 AM', type: 'credit', date: '2024-10-11' },
 ];
 
-const groupTransactionsByDate = (transactions.sort((a, b) => {
-  return new Date(a.date) - new Date(b.date)) => {
+const groupTransactionsByDate = (transactions) => {
   return transactions.reduce((acc, transaction) => {
     const { date } = transaction;
 
@@ -59,17 +59,30 @@ const transactionsByDate = groupTransactionsByDate(transactions);
 console.log(transactionsByDate);
 
 const TransactionList = () => {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true); // Start refreshing
+    console.log('Refreshing...'); // Check if it logs correctly
+    // Simulate an API fetch or data update
+    setTimeout(() => {
+      setRefreshing(false); // Stop refreshing after 1 second
+      console.log('Refreshed!');  // Check if it logs correctly
+    }, 1000);
+  }, []);
+  
+
   const renderItem = ({ item }) => (
     <View style={styles.transactionContainer}>
       <View style={styles.avatar}>
-        <Text style={styles.avatarText}>{item.name.charAt(0)}</Text>
+        <Text style={styles.avatarText}>{item.name.split(" ").map(first=>first.charAt(0).toUpperCase()).join("")}</Text>
       </View>
       <View style={styles.transactionDetails}>
-        <Text style={styles.transactionName}>{item.name}</Text>
+        <Text style={styles.transactionName}>{item.name.toUpperCase()}</Text>
         <Text style={styles.transactionPhone}>{item.phone}</Text>
       </View>
       <View style={styles.transactionInfo}>
-        <Text style={[styles.transactionAmount, item.type === 'credit' ? styles.credit : styles.debit]}>
+        <Text style={styles.transactionName}>
           {item.amount}
         </Text>
         <Text style={styles.transactionTime}>{item.time}</Text>
@@ -78,6 +91,7 @@ const TransactionList = () => {
   );
 
   return (
+    <SafeAreaView style={{flex: 1}}>
   <SectionList
       sections={transactionsByDate}  // Grouped transactions by date
       renderItem={renderItem}        // Function to render each transaction
@@ -85,7 +99,12 @@ const TransactionList = () => {
         <Text style={styles.sectionHeader}>{title}</Text>
       )}
       keyExtractor={(item) => item.id}  // Unique key for each transaction
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+
 />
+</SafeAreaView>
   )}
 
 const styles = StyleSheet.create({
@@ -98,24 +117,25 @@ const styles = StyleSheet.create({
     // borderColor: '#ddd',
   },
   sectionHeader:{
-    fontSize: 18,
+    fontSize: 12,
     fontWeight: 'bold',
     padding: 10,
     color:'grey',
     // backgroundColor: '#eee',
     marginVertical: 10,
+    textTransform: 'uppercase',
   },
   avatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#ddd',
+    backgroundColor: '#f2faff',
     justifyContent: 'center',
     alignItems: 'center',
   },
   avatarText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#3c86de',
+    fontSize: 12,
     fontWeight: 'bold',
   },
   transactionDetails: {
@@ -123,8 +143,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   transactionName: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
+    color: '#6b6b6b',
   },
   transactionPhone: {
     color: '#999',
@@ -133,13 +154,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
+    // alignItems:'flex-start',
     // flex: 1,
     // alignItems: 'flex-end',
   },
-  transactionAmount: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+  
   transactionTime: {
     color: '#999',
     fontSize: 12,
@@ -147,12 +166,7 @@ const styles = StyleSheet.create({
     // flexDirection: 'column',
     justifyContent: 'flex-end',
   },
-  credit: {
-    color: 'green',
-  },
-  debit: {
-    color: 'red',
-  },
+
 });
 
 export default TransactionList;
