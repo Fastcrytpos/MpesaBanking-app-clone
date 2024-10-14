@@ -25,12 +25,19 @@ const transactions = [
   { id: '20', name: 'Ali Mwenda', phone: '254700***432', amount: '+ KSH. 1,500.00', time: '11:55 AM', type: 'credit', date: '2024-10-11' },
 ];
 
-const groupTransactionsByDate = (transactions) => {
+const groupTransactionsByDate = (transactions.sort((a, b) => {
+  return new Date(a.date) - new Date(b.date)) => {
   return transactions.reduce((acc, transaction) => {
     const { date } = transaction;
-    
+
+    const formattedDate = new Date(date).toLocaleDateString('en-UK', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+
     // Check if the date already exists in the accumulator
-    const existingSection = acc.find(section => section.title === date);
+    const existingSection = acc.find(section => section.title === formattedDate);
     
     if (existingSection) {
       // If the date exists, push the transaction to the data array of that section
@@ -38,7 +45,7 @@ const groupTransactionsByDate = (transactions) => {
     } else {
       // If the date does not exist, create a new section
       acc.push({
-        title: date,
+        title: formattedDate,
         data: [transaction]
       });
     }
@@ -85,8 +92,18 @@ const styles = StyleSheet.create({
   transactionContainer: {
     flexDirection: 'row',
     padding: 10,
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
+    marginLeft: 10,
+    marginRight: 5
+    // borderBottomWidth: 1,
+    // borderColor: '#ddd',
+  },
+  sectionHeader:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    padding: 10,
+    color:'grey',
+    // backgroundColor: '#eee',
+    marginVertical: 10,
   },
   avatar: {
     width: 40,
@@ -113,8 +130,11 @@ const styles = StyleSheet.create({
     color: '#999',
   },
   transactionInfo: {
-    flex: 1,
-    alignItems: 'flex-end',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    // flex: 1,
+    // alignItems: 'flex-end',
   },
   transactionAmount: {
     fontSize: 16,
@@ -123,6 +143,9 @@ const styles = StyleSheet.create({
   transactionTime: {
     color: '#999',
     fontSize: 12,
+    display: 'flex',
+    // flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
   credit: {
     color: 'green',
