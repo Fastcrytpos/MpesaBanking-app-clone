@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { SafeAreaView, SectionList } from 'react-native';
 import { FlatList, View, Text, StyleSheet, Image } from 'react-native';
 import { RefreshControl } from 'react-native';
@@ -92,6 +93,13 @@ const TransactionList = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+
+      <View style={{paddingTop:'10px'}}>
+        <Text>M-PESA STATEMENT</Text>
+      </View>
+      <View style={{padding:'20px', display:'flex',flexDirection:'row', justifyContent:'space-around'}}>
+       {["AUGUST","SEPTEMBER","OCTOBER"].map(month=><TouchableOpacity><Text style={[styles.sectionHeader]}>{month}</Text></TouchableOpacity>)}
+      </View>
   <SectionList
       sections={transactionsByDate}  // Grouped transactions by date
       renderItem={renderItem}        // Function to render each transaction

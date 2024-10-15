@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/Ionicons'; 
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const handlepress = () => {navigation.navigate('TransactionList')}
+  const handlepageinprogress = () => {navigation.navigate('Pageinprogress')}
+
   return (
     <View style={styles.headerContainer}>
-     
       <View style={styles.leftSection}>
-        
+      <TouchableOpacity onPress={handlepageinprogress}>
         <View style={{
           width: 50,
           height: 50,
@@ -18,6 +20,7 @@ const Home = () => {
           backgroundColor: '#f4faff', 
           justifyContent: 'center',
           alignItems: 'center',
+          
         }} >
           <Text style={{
             fontSize: 18,
@@ -26,6 +29,7 @@ const Home = () => {
             color: '#59a4ed'
           }}>SM</Text>
         </View>
+
         <View style={{
           position:'relative',
           top: 0,
@@ -41,6 +45,8 @@ const Home = () => {
         }}>
           <Icon name="briefcase" size={26} color="white" />
         </View>
+        </TouchableOpacity>
+          
         <View style={{
           justifyContent:'top',
         }}>
@@ -51,12 +57,15 @@ const Home = () => {
 
       {/* Icons (Bell and QR Code) */}
       <View style={styles.rightSection}>
-        <TouchableOpacity>
+      <TouchableOpacity onPress={handlepageinprogress}>
+
           <Icon name="notifications-outline" size={24} color="#000" />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handlepageinprogress}>
+
           <MaterialIcons name="history" size={24} color="black" style={{marginLeft: 10,}}/>        </TouchableOpacity>
-        <TouchableOpacity>
+          <TouchableOpacity onPress={handlepageinprogress}>
+
           <Icon name="qr-code-outline" size={24} color="#000" style={styles.qrIcon} />
         </TouchableOpacity>
       </View>
@@ -80,7 +89,7 @@ const Home = () => {
         marginTop: 20,
       }}>
 
-        <TouchableOpacity style={{width:'25%'}}>
+<TouchableOpacity onPress={handlepageinprogress} style={{width:'25%'}}>
           <View style={styles.iconcards}>
             
           <Image 
@@ -92,7 +101,7 @@ const Home = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{width:'25%'}}>
+  <TouchableOpacity onPress={handlepageinprogress} style={{width:'25%'}}>
           <View style={styles.iconcards}>
             
           <Image 
@@ -104,7 +113,7 @@ const Home = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{width:'25%'}}>
+  <TouchableOpacity onPress={handlepageinprogress} style={{width:'25%'}}>
           <View style={styles.iconcards}>
             
           <Image 
@@ -116,7 +125,7 @@ const Home = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{width:'25%'}}>
+  <TouchableOpacity onPress={handlepageinprogress} style={{width:'25%'}}>
           <View style={styles.iconcards}>
             
           <Image 
@@ -139,12 +148,12 @@ const Home = () => {
 
         }}>
           <Text style={styles.sectionTitle}>M-PESA STATEMENTS</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handlepress}  >
             <Text style={styles.seeAll}>SEE ALL</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.statementItem}>
-          <View>
+          <View >
             <View style={{display:'flex', flexDirection: 'row'}}>
               <View style={{
               width: 30,
