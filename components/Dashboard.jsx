@@ -19,6 +19,7 @@ const Dashboard = () => {
         tabBarLabelStyle: {
           fontSize: 12,          // Customize label text size
           paddingBottom: 4,      // Adjust spacing below the label
+          
         },
       }}
     >

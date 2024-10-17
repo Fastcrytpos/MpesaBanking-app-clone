@@ -89,7 +89,7 @@ const Home = ({navigation}) => {
         marginTop: 20,
       }}>
 
-<TouchableOpacity onPress={handlepageinprogress} style={{width:'25%'}}>
+<TouchableOpacity onPress={()=>navigation.navigate('Enternumber')} style={{width:'25%'}}>
           <View style={styles.iconcards}>
             
           <Image 

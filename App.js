@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import TransactionList from './components/TransactionList';
 import Pageinprogress from './components/Pageinprogress';
+import Enternumber from './components/sendmoneycomponents/Enternumber';
 
 
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="TransactionList" component={TransactionList} />
         <Stack.Screen name="Pageinprogress" component={Pageinprogress} />
+        <Stack.Screen name='Enternumber' component={Enternumber} />
 
 
 

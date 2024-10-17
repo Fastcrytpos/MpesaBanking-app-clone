@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import Keyboardtype from './Keyboardtype';
 
 const Login = ({ navigation }) => {
   const [pin, setPin] = useState('');
@@ -41,57 +42,10 @@ const Login = ({ navigation }) => {
           </View>
         ))}
       </View>
-
-      {/* Numeric Keypad */}
-      <View style={styles.keypad}>
-        {[1, 2, 3].map((number) => (
-          <TouchableOpacity
-            key={number}
-            style={styles.key}
-            onPress={() => handlePress(number.toString())}
-          >
-            <Text style={styles.keyText}>{number}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {[4, 5, 6].map((number) => (
-          <TouchableOpacity
-            key={number}
-            style={styles.key}
-            onPress={() => handlePress(number.toString())}
-          >
-            <Text style={styles.keyText}>{number}</Text>
-          </TouchableOpacity>
-        ))}
-
-        {[7, 8, 9].map((number) => (
-          <TouchableOpacity
-            key={number}
-            style={styles.key}
-            onPress={() => handlePress(number.toString())}
-          >
-            <Text style={styles.keyText}>{number}</Text>
-          </TouchableOpacity>
-        ))}
-
-        <TouchableOpacity style={styles.key}>
-          <Text style={styles.keyText}>{''}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.key}
-          onPress={() => handlePress('0')}
-        >
-          <Text style={styles.keyText}>0</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.key}
-          onPress={handleBackspace} // Separate backspace logic
-        >
-          <Text style={styles.keyText}>⌫</Text>
-        </TouchableOpacity>
-      </View>
+        
+      {/* Keypad */}
+      <Keyboardtype handlePress={handlePress} handleBackspace={handleBackspace} />
+    
     </SafeAreaView>
   );
 };
@@ -156,25 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  keypad: {
-    flexWrap: 'wrap',
-    marginTop: 200,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  key: {
-    width: '33%',
-    padding: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  keyText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
+  
 });
 
 export default Login;
