@@ -27,7 +27,7 @@ const transactions = [
   { id: '20', name: 'Ali Mwenda', phone: '254700***432', amount: '+ KSH. 1,500.00', time: '11:55 AM', type: 'credit', date: '2024-10-11' },
 ];
 
-const groupTransactionsByDate = (transactions) => {
+const groupTransactionsByDate = (transactions, filterMonth =null) => {
   return transactions.reduce((acc, transaction) => {
     const { date } = transaction;
 
@@ -36,6 +36,13 @@ const groupTransactionsByDate = (transactions) => {
       month: 'long',
       year: 'numeric'
     });
+
+    if(filterDate){
+      const formarttedFilterMonth = new Date(filterMonth).toLocaleDateString('en-UK', {
+        month: 'long',
+        
+      });
+    }
 
     // Check if the date already exists in the accumulator
     const existingSection = acc.find(section => section.title === formattedDate);
@@ -98,7 +105,13 @@ const TransactionList = () => {
         <Text>M-PESA STATEMENT</Text>
       </View>
       <View style={{padding:'20px', display:'flex',flexDirection:'row', justifyContent:'space-around'}}>
-       {["AUGUST","SEPTEMBER","OCTOBER"].map(month=><TouchableOpacity><Text style={[styles.sectionHeader]}>{month}</Text></TouchableOpacity>)}
+       {["AUGUST","SEPTEMBER","OCTOBER"].map(month=><TouchableOpacity
+        onPress={()=>{
+
+          console.log(month)
+        }}
+       
+       ><Text style={[styles.sectionHeader]}>{month}</Text></TouchableOpacity>)}
       </View>
   <SectionList
       sections={transactionsByDate}  // Grouped transactions by date
